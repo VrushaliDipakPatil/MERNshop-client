@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { RegisterUser } from "../redux/apiCalls";
 
 const Container = styled.div`
   width: 100vw;
@@ -55,22 +58,71 @@ const Button = styled.button`
 `;
 
 const Register = () => {
+
+  const dispatch= useDispatch()
+  const [user, setUser] = useState({
+    name: "",
+    lastname:"",
+    username:"",
+    email: "",
+ password:"",
+ cpassword:"",
+  });
+
+  let name, value;
+  const handleForm = (event) => {
+    name = event.target.name;
+    value = event.target.value;
+
+    setUser({ ...user, [name]: value });
+  }
+
+  const handleRegister=(e)=>{
+    e.preventDefault();
+
+    const { name,lastname,username, email, password, cpassword} = user;
+
+    if(password !== cpassword){
+      alert("password and confirm password must be same");
+    }
+    else if(name && lastname && username && email && password){
+      const req={
+        name: name,
+        lastname : lastname,
+        username : username,
+        email : email,
+        password : password
+      }
+      dispatch(RegisterUser(req));
+      setUser({
+        name:"",
+        lastname:"",
+        username:"",
+        email:"",
+        password:"",
+        cpassword:""
+      });
+    } else(alert("Fill all Fields"))
+  }
+
+  
+
   return (
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
         <Form>
-          <Input placeholder="name" />
-          <Input placeholder="last name" />
-          <Input placeholder="username" />
-          <Input placeholder="email" />
-          <Input placeholder="password" />
-          <Input placeholder="confirm password" />
+          <Input type="text" value={user.name} name="name" onChange={handleForm} placeholder="name" />
+          <Input type="text" value={user.lastname} name="lastname" onChange={handleForm} placeholder="last name" />
+          <Input type="text" value={user.username} name="username" onChange={handleForm} placeholder="username" />
+          <Input type="text" value={user.email} name="email" onChange={handleForm} placeholder="email" />
+          <Input type="text" value={user.password} name="password" onChange={handleForm} placeholder="password" />
+          <Input type="text" value={user.cpassword} name="cpassword" onChange={handleForm} placeholder="confirm password" />
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
-          <Button>CREATE</Button>
+          <Button onClick={handleRegister}>CREATE</Button>
         </Form>
       </Wrapper>
     </Container>

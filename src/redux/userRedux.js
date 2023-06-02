@@ -3,11 +3,15 @@ import { createSlice } from "@reduxjs/toolkit";
 const userSlice = createSlice({
   name: "user",
   initialState: {
+    registerUser:null,
     currentUser: null,
     isFetching: false,
     error: false,
   },
   reducers: {
+    RegisterSuccess:(state, action)=>{
+state.registerUser = action.payload;
+    },
     loginStart: (state) => {
       state.isFetching = true;
     },
@@ -22,5 +26,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { loginStart, loginSuccess, loginFailure } = userSlice.actions;
+export const { loginStart, loginSuccess, loginFailure,RegisterSuccess } = userSlice.actions;
 export default userSlice.reducer;
