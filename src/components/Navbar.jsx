@@ -3,7 +3,7 @@ import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 
@@ -72,7 +72,7 @@ const MenuItem = styled.div`
 
 const Navbar = () => {
   const quantity = useSelector(state=>state.cart.quantity)
-
+  const user = useSelector(state=>state.user.currentUser)
 
   return (
     <Container>
@@ -88,12 +88,14 @@ const Navbar = () => {
           <Logo>Women Fashion.</Logo>
         </Center>
         <Right>
-          <Link to="/register" style={{ textDecoration: 'none' }}>
-          <MenuItem>REGISTER</MenuItem>
-          </Link>
+                    <Link to="/register" style={{ textDecoration: 'none' }}>
+                    <MenuItem>REGISTER</MenuItem>
+                    </Link>
+
+         {user ? <b style={{paddingLeft:"10px"}}>{user.username}</b>:
           <Link to="/login" style={{ textDecoration: 'none' }}>
           <MenuItem>SIGN IN</MenuItem>
-          </Link>
+          </Link>}
           <Link to="/cart">
           <MenuItem>
             <Badge badgeContent={quantity} color="primary">
