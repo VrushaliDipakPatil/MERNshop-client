@@ -1,11 +1,11 @@
 export const sliderItems = [
     {
       id: 1,
-      img: "https://thumbs.dreamstime.com/b/two-pretty-girlfriends-summer-dresses-125961527.jpg",
-      title: "SUMMER SALE",
+      img: "https://cdn0.weddingwire.in/article/6727/3_2/960/jpg/107276-wedding-dresses-for-girls-masaba.jpeg",
+      title: "Wedding Season",
       desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
-      cat:"summer",
-      bg: "f5fafd",
+      cat:"wedding",
+      bg: "fbf0f4",
     },
     {
       id: 2,
@@ -17,11 +17,11 @@ export const sliderItems = [
     },
     {
       id: 3,
-      img: "https://cdn0.weddingwire.in/article/6727/3_2/960/jpg/107276-wedding-dresses-for-girls-masaba.jpeg",
-      title: "Wedding Season",
+      img: "https://thumbs.dreamstime.com/b/two-pretty-girlfriends-summer-dresses-125961527.jpg",
+      title: "SUMMER SALE",
       desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
-      cat:"indian",
-      bg: "fbf0f4",
+      cat:"summer",
+      bg: "f5fafd",
     },
   ];
 
