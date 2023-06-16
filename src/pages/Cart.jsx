@@ -176,6 +176,10 @@ const CheckOutButton = styled.button`
   cursor: pointer;
 `;
 
+const FailCheckout = styled.span`
+background-color:red;
+`;
+
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const user = useSelector(state=>state.user.currentUser)
@@ -283,8 +287,8 @@ const handleCheckout=() =>{
               <Button onClick={handleCheckout}>CHECKOUT NOW</Button>
 {isCheckout == true && user ? 
  <StripeCheckout
- name="Lama Shop"
- image="https://avatars.githubusercontent.com/u/1486366?v=4"
+ name="Women Fashion"
+//  image="https://avatars.githubusercontent.com/u/1486366?v=4"
  billingAddress
  shippingAddress
  description={`Your total is $${cart.total}`}
@@ -294,7 +298,9 @@ const handleCheckout=() =>{
 >
 <CheckOutButton>proceed to checkout</CheckOutButton>
 </StripeCheckout>
-: ""
+: isCheckout == true && !user?
+<FailCheckout>Login to Checkout</FailCheckout>
+:""
 }            
           </Summary>
         </Bottom>

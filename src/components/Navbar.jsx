@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { logoutSuccess } from "../redux/userRedux";
 
 
 const Container = styled.div`
@@ -73,6 +74,11 @@ const MenuItem = styled.div`
 const Navbar = () => {
   const quantity = useSelector(state=>state.cart.quantity)
   const user = useSelector(state=>state.user.currentUser)
+  const dispatch = useDispatch()
+
+  const handleSignout=()=>{
+    dispatch(logoutSuccess())
+  }
 
   return (
     <Container>
@@ -88,14 +94,17 @@ const Navbar = () => {
           <Logo>Women Fashion.</Logo>
         </Center>
         <Right>
-                    <Link to="/register" style={{ textDecoration: 'none' }}>
-                    <MenuItem>REGISTER</MenuItem>
-                    </Link>
-
-         {user ? <b style={{paddingLeft:"10px"}}>{user.username}</b>:
-          <Link to="/login" style={{ textDecoration: 'none' }}>
-          <MenuItem>SIGN IN</MenuItem>
-          </Link>}
+          {user ? <b style={{paddingLeft:"10px"}}>{user.username}</b>:
+          <Link to="/register" style={{ textDecoration: 'none' }}>
+          <MenuItem>REGISTER</MenuItem>
+          </Link>
+          }
+            {user? <MenuItem onClick={handleSignout}>SIGN OUT</MenuItem>
+            : 
+            <Link to="/login" style={{ textDecoration: 'none' }}>
+            <MenuItem>SIGN IN</MenuItem>
+            </Link>}        
+         
           <Link to="/cart">
           <MenuItem>
             <Badge badgeContent={quantity} color="primary">

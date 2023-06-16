@@ -24,8 +24,11 @@ state.registerUser = action.payload;
       state.isFetching = false;
       state.error = true;
     },
+    logoutSuccess:(state)=>{
+      state.currentUser = null;
+    }
   },
 });
 
-export const { loginStart, loginSuccess, loginFailure,RegisterSuccess } = userSlice.actions;
+export const { loginStart, loginSuccess, loginFailure,RegisterSuccess ,logoutSuccess} = userSlice.actions;
 export default userSlice.reducer;
