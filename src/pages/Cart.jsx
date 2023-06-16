@@ -161,11 +161,26 @@ const Button = styled.button`
   background-color: black;
   color: white;
   font-weight: 600;
+  cursor: pointer;
+`;
+
+const CheckOutButton = styled.button`
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  position: relative;
+  background-color: teal;
+  text-align: center;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
 `;
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  const user = useSelector(state=>state.user.currentUser)
   const [stripeToken, setStripeToken] = useState(null);
+  const [isCheckout, setCheckout]=useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -195,7 +210,9 @@ const Cart = () => {
   const handleSub = (product) => {
     dispatch(DecrementQty(product._id))
      };
-
+const handleCheckout=() =>{
+  setCheckout(true);
+}
 
   return (
     <Container>
@@ -209,7 +226,7 @@ const Cart = () => {
             <TopText>Shopping Bag(2)</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
+
         </Top>
         <Bottom>
           <Info>
@@ -262,18 +279,23 @@ const Cart = () => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
-            <StripeCheckout
-              name="Lama Shop"
-              image="https://avatars.githubusercontent.com/u/1486366?v=4"
-              billingAddress
-              shippingAddress
-              description={`Your total is $${cart.total}`}
-              amount={cart.total * 100}
-              token={onToken}
-              stripeKey={KEY}
-            >
-              <Button>CHECKOUT NOW</Button>
-            </StripeCheckout>
+           
+              <Button onClick={handleCheckout}>CHECKOUT NOW</Button>
+{isCheckout == true && user ? 
+ <StripeCheckout
+ name="Lama Shop"
+ image="https://avatars.githubusercontent.com/u/1486366?v=4"
+ billingAddress
+ shippingAddress
+ description={`Your total is $${cart.total}`}
+ amount={cart.total * 100}
+ token={onToken}
+ stripeKey={KEY}
+>
+<CheckOutButton>proceed to checkout</CheckOutButton>
+</StripeCheckout>
+: ""
+}            
           </Summary>
         </Bottom>
       </Wrapper>
