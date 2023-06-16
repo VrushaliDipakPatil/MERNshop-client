@@ -9,7 +9,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
 import { addProduct } from "../redux/cartRedux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Container = styled.div``;
 
@@ -129,6 +129,8 @@ const Product = () => {
   const [size, setSize] = useState("");
   const dispatch = useDispatch();
 
+  const cart = useSelector((state) => state.cart.products);
+
   useEffect(() => {
     const getProduct = async () => {
       try {
@@ -147,11 +149,14 @@ const Product = () => {
     }
   };
 
-  const handleClick = () => {
-    dispatch(
-      addProduct({ ...product, quantity, color, size })
-    );
+  const handleClick = (product) => {
+    const itemExists = cart.some((item) => item._id === product._id);
+  
+    if (!itemExists) {
+      dispatch(addProduct({ ...product, quantity, color, size }));
+    }
   };
+  
   return (
     <Container>
       <Navbar />
@@ -186,8 +191,8 @@ const Product = () => {
               <Amount>{quantity}</Amount>
               <Add onClick={() => handleQuantity("inc")} />
             </AmountContainer>
-            <Button onClick={handleClick}>ADD TO CART</Button>
-          </AddContainer>
+            <Button onClick={(e) => { handleClick(product) }}>ADD TO CART</Button>          
+            </AddContainer>
         </InfoContainer>
       </Wrapper>
       <Newsletter />
