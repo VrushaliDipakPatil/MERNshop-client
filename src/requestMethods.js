@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const BASE_URL = "https://womenfashion.onrender.com/"
-const BASE_URL = "http://localhost:8000/api/";
+const BASE_URL = "https://womenfashion.onrender.com/"
+// const BASE_URL = "http://localhost:8000/";
 // const TOKEN =
 //   JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser
 //     .accessToken || "";

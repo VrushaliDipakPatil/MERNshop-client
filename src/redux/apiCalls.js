@@ -14,7 +14,7 @@ export const RegisterUser =
   (user) =>
   async (dispatch) => {
     try {
-      const res = await publicRequest.post("/auth/register", user);
+      const res = await publicRequest.post("/api/auth/register", user);
     dispatch(RegisterSuccess(res.data));
     } catch (err) {
       dispatch(loginFailure());
@@ -24,7 +24,7 @@ export const RegisterUser =
 export const login = async (dispatch, user) => {
   dispatch(loginStart());
   try {
-    const res = await publicRequest.post("/auth/login", user);
+    const res = await publicRequest.post("/api/auth/login", user);
     dispatch(loginSuccess(res.data));
   } catch (err) {
     dispatch(loginFailure());
